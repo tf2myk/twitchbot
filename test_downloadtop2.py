@@ -11,6 +11,11 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class TestDownloadtop2():
+
+  def __init__(self, vids, link):
+    self.vids = vids
+    self.link = link
+
   def setup_method(self):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -22,67 +27,23 @@ class TestDownloadtop2():
     self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
     self.driver.maximize_window()
 
+    #N = 4
 
-
-    self.driver.find_element(By.CSS_SELECTOR, ".h-full:nth-child(1) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-    #time.sleep(3)
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(2) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-    #time.sleep(3)
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(3) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-    #time.sleep(3)
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(4) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-    #time.sleep(3)
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(5) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-    
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(6) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(7) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(8) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(9) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-
-    self.driver.get("https://streamscharts.com/clips?game=league-of-legends")
-    self.driver.find_element(By.CSS_SELECTOR, ".relative:nth-child(10) > .flex-col").click()
-    WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
-    self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
-    time.sleep(3)
+    for i in range(1, self.vids+1):
+      name = ".h-full:nth-child(" + str(i) + ")> .flex-col"
+      #print(name)
+      self.driver.find_element(By.CSS_SELECTOR, name).click()
+      WebDriverWait(self.driver, 15).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "Download .MP4, 1080p")))
+      self.driver.find_element(By.LINK_TEXT, "Download .MP4, 1080p").click()
+      time.sleep(0.5)
+      if i >= self.vids:
+        time.sleep(2)
+        self.driver.quit()
+      else:
+        self.driver.get(self.link)
 
 
 
-    self.driver.close()
-  
-a = TestDownloadtop2()
+a = TestDownloadtop2(15,"https://streamscharts.com/clips?game=league-of-legends")
 a.setup_method()
 a.test_downloadtop2()
-a.teardown_method()
