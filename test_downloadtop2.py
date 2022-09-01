@@ -44,6 +44,6 @@ class TestDownloadtop2():
 
 
 
-a = TestDownloadtop2(3,"https://streamscharts.com/clips?game=league-of-legends")
+a = TestDownloadtop2(15,"https://streamscharts.com/clips?game=league-of-legends")
 a.setup_method()
 a.test_downloadtop2()
