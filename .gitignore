@@ -1,2 +1,6 @@
 /chromedriver.exe
 /Twitch.side
+/build
+/dist
+/clipbot.spec
+/img
