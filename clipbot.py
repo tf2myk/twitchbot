@@ -9,6 +9,8 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 class clipbot():
 
@@ -19,7 +21,7 @@ class clipbot():
   def setup_method(self):
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    self.driver = webdriver.Chrome(options=options)
+    self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     self.vars = {}
   
   def teardown_method(self):
@@ -38,7 +40,7 @@ class clipbot():
       #time.sleep(0.2)
       if i >= self.vids:
         print("Done")
-        self.driver.execute_script('''window.open("https://youtu.be/bBCB0y9Mgns","_blank");''')
+        self.driver.execute_script('''window.open("https://media1.giphy.com/media/26u4lOMA8JKSnL9Uk/giphy.gif?cid=790b7611a4d0b9525938666946ee75ebb87f7f6b5e715a39&rid=giphy.gif&ct=g","_blank");''')
         #self.teardown_method()
       else:
         self.driver.get(self.link)
@@ -47,7 +49,7 @@ vidsnum = input("How many vids: ")
 cliplink = input("Enter streamscharts clip link example: https://streamscharts.com/clips?game=league-of-legends\n")
 
 while "https://streamscharts.com/clips?game=" not in cliplink:
-  input("Incorrect link used, example: https://streamscharts.com/clips?game=league-of-legends\n")
+  cliplink = input("Incorrect link used, example: https://streamscharts.com/clips?game=league-of-legends\n")
 
 clipper = clipbot(int(vidsnum),cliplink)
 clipper.setup_method()
